@@ -1,0 +1,3 @@
+comment = 'Uzbek Hunspell dictionaries (Latin + Cyrillic) and FTS config'
+default_version = '1.0'
+relocatable = true
