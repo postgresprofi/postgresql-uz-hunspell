@@ -1,18 +1,21 @@
+-- Uzbek FTS: use hunspell template for Hunspell .aff / .dic (not ispell).
+-- Install files into tsearch_data via extension Makefile (TSEARCH_DATA).
+
 CREATE TEXT SEARCH DICTIONARY uz_hunspell_lat (
-  TEMPLATE = ispell,
+  TEMPLATE = hunspell,
   DictFile = uz_UZ,
-  AffFile  = uz_UZ,
+  AffFile = uz_UZ,
   StopWords = uzbek
 );
 
 CREATE TEXT SEARCH DICTIONARY uz_hunspell_cyrl (
-  TEMPLATE = ispell,
+  TEMPLATE = hunspell,
   DictFile = uz_UZ_cyrl,
-  AffFile  = uz_UZ_cyrl,
+  AffFile = uz_UZ_cyrl,
   StopWords = uzbek_cyrl
 );
 
-CREATE TEXT SEARCH CONFIGURATION uz_fts (COPY = simple);
+CREATE TEXT SEARCH CONFIGURATION uz_fts (COPY = pg_catalog.simple);
 
 ALTER TEXT SEARCH CONFIGURATION uz_fts
   ALTER MAPPING FOR
@@ -20,4 +23,4 @@ ALTER TEXT SEARCH CONFIGURATION uz_fts
   WITH uz_hunspell_lat, uz_hunspell_cyrl, simple;
 
 COMMENT ON TEXT SEARCH CONFIGURATION uz_fts IS
-'Uzbek FTS (Latin + Cyrillic) via Hunspell';
+  'Uzbek FTS (Latin + Cyrillic) via Hunspell';
